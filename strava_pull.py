@@ -10,8 +10,14 @@ Setup:
 
 To get credentials:
   - Create an app at https://www.strava.com/settings/api
-  - Use the authorization flow (or the Strava API playground) to obtain a
-    refresh_token with activity:read_all scope.
+  - Authorize with activity:read scope (or activity:read_all for private activities)
+    using the URL below — replace YOUR_CLIENT_ID:
+      https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=activity:read_all
+  - Exchange the returned code for tokens via POST /oauth/token (grant_type=authorization_code)
+    to get your refresh_token.
+
+  NOTE: The "read" scope only covers public profile data and does NOT include
+  activities. You must have activity:read (or activity:read_all) scope.
 """
 
 import json
